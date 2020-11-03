@@ -35,13 +35,13 @@ def analogReading():
         if ser.in_waiting > 0:
             try:
                 val = ser.readline().decode('utf-8').rstrip()
-                return val
+                return str(val)
             except:
                 print("Error!")
                 errorCounter += 1
                 if errorCounter < 10:
-                    return ""
-    return ""
+                    return "ERROR"
+    return "ERROR"
 
 @app.route('/temperature')
 def temperature():
