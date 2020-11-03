@@ -30,19 +30,26 @@ def analogReading():
     ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     ser.flush()
     val = ""
+    valList = []
+    for _ in range(100):
+        currReading = getReading(ser)
+        if currReading is not None:
+            valList.append(currReading)
+    val = str( sum(valList) / len(valList))
+    return val
+
+def getReading(ser):
     errorCounter = 0
     while True:
         if ser.in_waiting > 0:
             try:
                 val = ser.readline().decode('utf-8').rstrip()
-                return str(val)
+                return int(val)
             except:
                 print("Error!")
                 errorCounter += 1
-                sleep(0.5)
                 if errorCounter < 10:
-                    return "ERROR"
-    return "ERROR"
+                    return None
 
 @app.route('/temperature')
 def temperature():
