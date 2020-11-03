@@ -1,5 +1,5 @@
 from app import app
-import os, glob, time
+import os, glob, time, serial
 
 @app.route('/')
 @app.route('/index')
@@ -23,6 +23,15 @@ def turnOff():
 def status():
     with open("/sys/class/gpio/gpio23/value", "r") as f: 
         val = f.read()
+    return val
+
+@app.route('/analogReading')
+def analogReading():
+    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+    ser.flush()
+    val = None
+    if ser.in_waiting > 0:
+        val = ser.readline().decode('utf-8').rstrip()
     return val
 
 @app.route('/temperature')
