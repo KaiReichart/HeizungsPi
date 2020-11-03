@@ -6,5 +6,5 @@ else
 fi
 
 
-export FLASK_APP=heizungsserver.py
+export FLASK_APP=/home/pi/HeizungsPi/heizungsserver.py
 python3 -m flask run --host=0.0.0.0
