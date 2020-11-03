@@ -31,11 +31,11 @@ def analogReading():
     ser.flush()
     val = ""
     valList = []
-    for _ in range(100):
+    for _ in range(50):
         currReading = getReading(ser)
         if currReading is not None:
             valList.append(currReading)
-    val = str( sum(valList) / len(valList))
+    val = str( int( sum(valList) / len(valList) ) )
     return val
 
 def getReading(ser):
