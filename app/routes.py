@@ -29,10 +29,19 @@ def status():
 def analogReading():
     ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     ser.flush()
-    val = None
-    if ser.in_waiting > 0:
-        val = ser.readline().decode('utf-8').rstrip()
-    return val
+    val = ""
+    errorCounter = 0
+    while True:
+        if ser.in_waiting > 0:
+            try:
+                val = ser.readline().decode('utf-8').rstrip()
+                return val
+            except:
+                print("Error!")
+                errorCounter += 1
+                if errorCounter < 10:
+                    return ""
+    return ""
 
 @app.route('/temperature')
 def temperature():
