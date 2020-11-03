@@ -39,6 +39,7 @@ def analogReading():
             except:
                 print("Error!")
                 errorCounter += 1
+                sleep(0.5)
                 if errorCounter < 10:
                     return "ERROR"
     return "ERROR"
