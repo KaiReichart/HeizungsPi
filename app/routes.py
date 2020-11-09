@@ -79,9 +79,17 @@ def read_temp_raw(device_file):
 @app.route('/rolladenUp')
 def rolladenUp():
     os.system('sudo python3 /home/pi/rolladen.py UP')
+    os.system('echo "1" > /home/pi/rolladenStatus')
     return "OK"
 
 @app.route('/rolladenDown')
 def rolladenDown():
     os.system('sudo python3 /home/pi/rolladen.py DOWN')
+    os.system('echo "0" > /home/pi/rolladenStatus')
     return "OK"
+
+@app.route('/rolladenStatus')
+def rolladenStatus():
+    with open("/home/pi/rolladenStatus", "r") as f: 
+        val = f.read()
+    return val
