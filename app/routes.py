@@ -75,3 +75,13 @@ def read_temp_raw(device_file):
     lines = f.readlines()
     f.close()
     return lines
+
+@app.route('/rolladenUp')
+def rolladenUp():
+    os.system('sudo python3 /home/pi/rolladen.py UP')
+    return "OK"
+
+@app.route('/rolladenDown')
+def rolladenDown():
+    os.system('sudo python3 /home/pi/rolladen.py DOWN')
+    return "OK"
